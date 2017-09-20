@@ -1,0 +1,2 @@
+internal_therm_path: '/sys/bus/w1/devices/28-000008b8bc90/w1_slave'
+external_therm_path: '/sys/bus/w1/devices/28-000008bfc388/w1_slave'
