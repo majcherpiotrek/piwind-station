@@ -9,4 +9,5 @@ import com.piotrmajcher.piwind.domain.Snapshot;
 
 public interface SnapshotRepository extends CrudRepository<Snapshot, Integer>{
 	
+	List<Snapshot> findByDate(Date date);
 }

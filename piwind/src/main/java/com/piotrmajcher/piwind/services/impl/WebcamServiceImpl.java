@@ -9,8 +9,13 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.yaml.snakeyaml.extensions.compactnotation.CompactConstructor;
 
 import com.piotrmajcher.piwind.domain.Snapshot;
 import com.piotrmajcher.piwind.repositories.SnapshotRepository;
@@ -87,6 +93,22 @@ public class WebcamServiceImpl implements WebcamService{
 
 	@Override
 	public Snapshot getLatestSnapshot() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateWithoutTime; 
+		try {
+			dateWithoutTime = sdf.parse(sdf.format(new Date()));
+			ArrayList<Snapshot> todaySnapshots =  (ArrayList<Snapshot>) snapshotRepository.findByDate(dateWithoutTime);
+			Collections.sort(todaySnapshots, new Comparator<Snapshot>(){
+				@Override
+				public int compare(Snapshot snap1, Snapshot snap2) {
+					return snap1.getTime().after(snap2.getTime()) ? -1 : (snap1.getTime().before(snap2.getTime())) ? 1 : 0;
+				}
+			});
+			 return todaySnapshots.get(0);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
