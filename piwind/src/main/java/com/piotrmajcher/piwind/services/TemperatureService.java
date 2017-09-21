@@ -4,9 +4,16 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Service;
 
+import com.piotrmajcher.piwind.domain.ExternalTemperature;
+import com.piotrmajcher.piwind.domain.InternalTemperature;
+
 public interface TemperatureService {
 	
-	public void fetchAndSaveInternalTemperature();
+	public Iterable<ExternalTemperature> getAllExternalTemperatureData();
 	
-	public void fetchAndSaveExternalTemperature();
+	public Iterable<InternalTemperature> getAllInternalTemperatureData();
+	
+	public ExternalTemperature getLastExternalTemperatureMeasurement();
+	
+	public InternalTemperature getLastInternalTemperatureMeasurement();
 }

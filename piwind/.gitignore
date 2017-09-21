@@ -9,6 +9,8 @@
 .project
 .settings
 .springBeans
+*.class
+bin/
 
 ### IntelliJ IDEA ###
 .idea

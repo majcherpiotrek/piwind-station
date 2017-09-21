@@ -20,20 +20,17 @@ import com.piotrmajcher.piwind.services.TemperatureService;
 public class TemperatureController {
 	
 	@Autowired
-	private InternalTemperatureRepository internalTemperatureRepository;
-	
-	@Autowired
-	private ExternalTemperatureRepository externalTemperatureRepository;
+	TemperatureService temperatureService;
 	
 	@GetMapping(path="/all-external")
 	@CrossOrigin
 	public @ResponseBody Iterable<ExternalTemperature> getAllExternalTemperatureData() {
-		return externalTemperatureRepository.findAll();
+		return temperatureService.getAllExternalTemperatureData();
 	}
 	
 	@GetMapping(path="/all-internal")
 	@CrossOrigin
 	public @ResponseBody Iterable<InternalTemperature> getAllInternalTemperatureData() {
-		return internalTemperatureRepository.findAll();
+		return temperatureService.getAllInternalTemperatureData();
 	}
 }

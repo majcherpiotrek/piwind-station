@@ -31,10 +31,14 @@ public class TemperatureServiceImpl implements TemperatureService {
 	@Autowired
 	private ExternalTemperatureRepository externalTemperatureRepository;
 	
-	@Override
 	@Transactional
 	@Scheduled(fixedRate = 10000)
-	public void fetchAndSaveInternalTemperature() {
+	private void fetchAndSaveTemperatureSensorsData() {
+		fetchAndSaveExternalTemperature();
+		fetchAndSaveInternalTemperature();
+	}
+	
+	private void fetchAndSaveInternalTemperature() {
 		try {
 			Double temperatureDouble = executeFetchTemperaturePythonScript(FETCH_INTERNAL_TEMP_SCRIPT_PATH);
 			
@@ -50,10 +54,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 		
 	}
 
-	@Override
-	@Transactional
-	@Scheduled(fixedRate = 10000, initialDelay = 5000)
-	public void fetchAndSaveExternalTemperature()  {
+	private void fetchAndSaveExternalTemperature()  {
 		try {
 			Double temperatureDouble = executeFetchTemperaturePythonScript(FETCH_EXTERNAL_TEMP_SCRIPT_PATH);
 			
@@ -83,6 +84,28 @@ public class TemperatureServiceImpl implements TemperatureService {
 		Assert.notNull(tempString);
 		
 		return Double.valueOf(tempString);
+	}
+
+	@Override
+	public Iterable<ExternalTemperature> getAllExternalTemperatureData() {
+		return externalTemperatureRepository.findAll();
+	}
+
+	@Override
+	public Iterable<InternalTemperature> getAllInternalTemperatureData() {
+		return internalTemperatureRepository.findAll();
+	}
+
+	@Override
+	public ExternalTemperature getLastExternalTemperatureMeasurement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InternalTemperature getLastInternalTemperatureMeasurement() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
