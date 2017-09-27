@@ -67,10 +67,10 @@ public class WebcamServiceImpl implements WebcamService{
     	
     	Process process = Runtime.getRuntime().exec(command);
 		 
-		BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
     	
-		Assert.isNull(stdError.readLine());
+		String error = stdError.readLine();
+		Assert.isNull(error, error);
 		return snapshotFilename;
     }
 
@@ -85,10 +85,10 @@ public class WebcamServiceImpl implements WebcamService{
 		
 		Process process = Runtime.getRuntime().exec(command);
 		 
-		BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
     	
-		Assert.isNull(stdError.readLine());
+		String error = stdError.readLine();
+		Assert.isNull(error, error);
 	}
 
 	@Override

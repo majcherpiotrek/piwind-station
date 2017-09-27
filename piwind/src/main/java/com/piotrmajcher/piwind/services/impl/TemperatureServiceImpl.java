@@ -24,6 +24,9 @@ public class TemperatureServiceImpl implements TemperatureService {
 	
 	private static final String FETCH_INTERNAL_TEMP_SCRIPT_PATH = "./scripts/read_internal_temperature.py";
 	private static final String FETCH_EXTERNAL_TEMP_SCRIPT_PATH = "./scripts/read_external_temperature.py";
+	private static final String ERROR_FETCHING_INTERNAL_TEMPERATURE = "Error while fetching internal temperature data";
+	private static final String ERROR_FETCHING_EXTERNAL_TEMPERATURE = "Error while fetching external temperature data";
+	private static final String ERROR_WHILE_EXECUTING_SCRIPT = "Error occured while executing following script: ";
 	
 	@Autowired
 	private InternalTemperatureRepository internalTemperatureRepository;
@@ -42,7 +45,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 		try {
 			Double temperatureDouble = executeFetchTemperaturePythonScript(FETCH_INTERNAL_TEMP_SCRIPT_PATH);
 			
-			Assert.notNull(temperatureDouble);
+			Assert.notNull(temperatureDouble, ERROR_FETCHING_INTERNAL_TEMPERATURE);
 			
 			InternalTemperature internalTemperature = new InternalTemperature();
 			internalTemperature.setTemperatureCelsius(temperatureDouble);
@@ -58,7 +61,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 		try {
 			Double temperatureDouble = executeFetchTemperaturePythonScript(FETCH_EXTERNAL_TEMP_SCRIPT_PATH);
 			
-			Assert.notNull(temperatureDouble);
+			Assert.notNull(temperatureDouble, ERROR_FETCHING_EXTERNAL_TEMPERATURE);
 			
 			ExternalTemperature externalTemperature = new ExternalTemperature();
 			externalTemperature.setTemperatureCelsius(temperatureDouble);
@@ -78,10 +81,11 @@ public class TemperatureServiceImpl implements TemperatureService {
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 		
-		Assert.isNull(stdError.readLine());
+		String error = stdError.readLine();
+		Assert.isNull(error, error);
 		
 		String tempString = stdInput.readLine();
-		Assert.notNull(tempString);
+		Assert.notNull(tempString, ERROR_WHILE_EXECUTING_SCRIPT + scriptPath);
 		
 		return Double.valueOf(tempString);
 	}
