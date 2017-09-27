@@ -29,4 +29,16 @@ public class TemperatureController {
 	public @ResponseBody Iterable<InternalTemperature> getAllInternalTemperatureData() {
 		return temperatureService.getAllInternalTemperatureData();
 	}
+
+	@GetMapping(path="/last-external")
+	@CrossOrigin
+	public @ResponseBody ExternalTemperature getLastExternalTemperatureMeasurement() throws Exception {
+		return temperatureService.getLastExternalTemperatureMeasurement();
+	}
+
+	@GetMapping(path="/last-internal")
+	@CrossOrigin
+	public @ResponseBody InternalTemperature getLastInternalTemperatureMeasurement() throws Exception {
+		return temperatureService.getLastInternalTemperatureMeasurement();
+	}
 }

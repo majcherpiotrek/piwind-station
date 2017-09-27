@@ -106,13 +106,7 @@ public class WebcamServiceImpl implements WebcamService{
 		//TODO what if findByDate returns null/empty list
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
-		ArrayList<Snapshot> todaySnapshots =  (ArrayList<Snapshot>) snapshotRepository.findByDate(dateWithoutTime);
-		Collections.sort(todaySnapshots, new Comparator<Snapshot>(){
-			@Override
-			public int compare(Snapshot snap1, Snapshot snap2) {
-				return snap1.getTime().after(snap2.getTime()) ? -1 : (snap1.getTime().before(snap2.getTime())) ? 1 : 0;
-			}
-		});
+		List<Snapshot> todaySnapshots = snapshotRepository.findByDateOrderByIdDesc(dateWithoutTime);
 		return todaySnapshots.get(0);	
 	}
 

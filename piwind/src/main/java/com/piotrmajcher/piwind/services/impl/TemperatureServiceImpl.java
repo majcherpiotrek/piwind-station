@@ -3,14 +3,13 @@ package com.piotrmajcher.piwind.services.impl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -105,15 +104,20 @@ public class TemperatureServiceImpl implements TemperatureService {
 	}
 
 	@Override
-	public ExternalTemperature getLastExternalTemperatureMeasurement() {
-		// TODO Auto-generated method stub
-		return null;
+	public ExternalTemperature getLastExternalTemperatureMeasurement() throws Exception {
+		//TODO what if findByDate returns null/empty list
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
+		List<ExternalTemperature> todayMeasurementsSortedDescending = externalTemperatureRepository.findByDateOrderByIdDesc(dateWithoutTime);
+		return todayMeasurementsSortedDescending.get(0);
 	}
 
 	@Override
-	public InternalTemperature getLastInternalTemperatureMeasurement() {
-		// TODO Auto-generated method stub
-		return null;
+	public InternalTemperature getLastInternalTemperatureMeasurement() throws Exception {
+		//TODO what if findByDate returns null/empty list
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
+		List<InternalTemperature> todayMeasurementsSortedDescending = internalTemperatureRepository.findByDateOrderByIdDesc(dateWithoutTime);
+		return todayMeasurementsSortedDescending.get(0);
 	}
-
 }

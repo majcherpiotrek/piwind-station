@@ -4,6 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.piotrmajcher.piwind.domain.ExternalTemperature;
 
-public interface ExternalTemperatureRepository extends CrudRepository<ExternalTemperature, Integer>{
+import java.util.Date;
+import java.util.List;
 
+public interface ExternalTemperatureRepository extends CrudRepository<ExternalTemperature, Integer> {
+    List<ExternalTemperature> findByDateOrderByIdDesc(Date date);
 }

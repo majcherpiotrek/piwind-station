@@ -13,7 +13,7 @@ public interface TemperatureService {
 	
 	public Iterable<InternalTemperature> getAllInternalTemperatureData();
 	
-	public ExternalTemperature getLastExternalTemperatureMeasurement();
+	public ExternalTemperature getLastExternalTemperatureMeasurement() throws Exception;
 	
-	public InternalTemperature getLastInternalTemperatureMeasurement();
+	public InternalTemperature getLastInternalTemperatureMeasurement() throws Exception;
 }
