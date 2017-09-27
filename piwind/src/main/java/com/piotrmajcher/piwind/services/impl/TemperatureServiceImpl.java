@@ -53,7 +53,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 			
 			InternalTemperature internalTemperature = new InternalTemperature();
 			internalTemperature.setTemperatureCelsius(temperatureDouble);
-			logger.info(INFO_FETCHED_INTERNAL_TEMPERATURE);
+			logger.info(INFO_FETCHED_INTERNAL_TEMPERATURE + " " + internalTemperature.getTemperatureCelsius());
 			internalTemperatureRepository.save(internalTemperature);
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -68,7 +68,8 @@ public class TemperatureServiceImpl implements TemperatureService {
 			Assert.notNull(temperatureDouble, ERROR_FETCHING_EXTERNAL_TEMPERATURE);
 			
 			ExternalTemperature externalTemperature = new ExternalTemperature();
-			logger.info(INFO_FETCHED_EXTERNAL_TEMPERATURE);
+			externalTemperature.setTemperatureCelsius(temperatureDouble);
+			logger.info(INFO_FETCHED_EXTERNAL_TEMPERATURE + " " + externalTemperature.getTemperatureCelsius());
 			externalTemperatureRepository.save(externalTemperature);
 		} catch(IOException e) {
 			e.printStackTrace();

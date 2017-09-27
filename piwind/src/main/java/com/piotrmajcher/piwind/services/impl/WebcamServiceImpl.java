@@ -37,7 +37,7 @@ public class WebcamServiceImpl implements WebcamService{
 	private static final Logger logger = Logger.getLogger(WebcamServiceImpl.class);
 
 	private static final String RM_COMMAND = "rm ";
-	private static final String TAKE_PICTURE_COMMAND = "raspistill -o ";
+	private static final String TAKE_PICTURE_COMMAND = "raspistill --nopreview -o ";
 	private static final String SNAPSHOT_FILENAME_PREFIX = "./snapshots/snapshot_"; //snapshot filename : snapshot_2017-09-21T12:56:23.5.jpg
 	private static final String SNAPSHOT_SAVED_MESSAGE = "Snapshot saved: ";
 	private static final String ERROR_TAKING_SNAPSHOT = "Error occured while taking the snapshot: ";
