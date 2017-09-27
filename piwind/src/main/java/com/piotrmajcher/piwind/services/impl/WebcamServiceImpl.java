@@ -40,6 +40,9 @@ public class WebcamServiceImpl implements WebcamService{
 	private static final String TAKE_PICTURE_COMMAND = "raspistill -o ";
 	private static final String SNAPSHOT_FILENAME_PREFIX = "./snapshots/snapshot_"; //snapshot filename : snapshot_2017-09-21T12:56:23.5.jpg
 	private static final String SNAPSHOT_SAVED_MESSAGE = "Snapshot saved: ";
+	private static final String ERROR_TAKING_SNAPSHOT = "Error occured while taking the snapshot: ";
+	private static final String ERROR_DELETING_SNAPSHOT_FILE = "Error occured while deleting the snapshot temporary file: ";
+	
 	@Autowired
 	private SnapshotRepository snapshotRepository;
 	
@@ -59,12 +62,12 @@ public class WebcamServiceImpl implements WebcamService{
     		logger.info(SNAPSHOT_SAVED_MESSAGE + snapshotFilename);
     		
     		deleteISnapshotFile(snapshotFilename);	
-    	} catch(IOException e) {
-    		e.printStackTrace();
+    	} catch(Exception e) {
+    		logger.error(e.getMessage());
     	}
     }
     
-    private String takePicture() throws IOException{
+    private String takePicture() throws Exception {
     	final String snapshotFilename = getSnapshotFilename();
     	final String command = TAKE_PICTURE_COMMAND + snapshotFilename;
     	
@@ -73,7 +76,9 @@ public class WebcamServiceImpl implements WebcamService{
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
     	
 		String error = stdError.readLine();
-		Assert.isNull(error, error);
+		if (error != null) {
+			throw new Exception(ERROR_TAKING_SNAPSHOT + error);
+		}
 		return snapshotFilename;
     }
 
@@ -83,7 +88,7 @@ public class WebcamServiceImpl implements WebcamService{
     	return SNAPSHOT_FILENAME_PREFIX + dateFormat.format(now);
 	}
 	
-	private void deleteISnapshotFile(String snapshotFilename) throws IOException{
+	private void deleteISnapshotFile(String snapshotFilename) throws Exception {
 		final String command = RM_COMMAND + snapshotFilename;
 		
 		Process process = Runtime.getRuntime().exec(command);
@@ -91,28 +96,24 @@ public class WebcamServiceImpl implements WebcamService{
 		BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
     	
 		String error = stdError.readLine();
-		Assert.isNull(error, error);
+		if (error != null) {
+			throw new Exception(ERROR_DELETING_SNAPSHOT_FILE + error);
+		}
 	}
 
 	@Override
-	public Snapshot getLatestSnapshot() {
+	public Snapshot getLatestSnapshot() throws Exception {
+		//TODO what if findByDate returns null/empty list
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateWithoutTime; 
-		try {
-			dateWithoutTime = sdf.parse(sdf.format(new Date()));
-			ArrayList<Snapshot> todaySnapshots =  (ArrayList<Snapshot>) snapshotRepository.findByDate(dateWithoutTime);
-			Collections.sort(todaySnapshots, new Comparator<Snapshot>(){
-				@Override
-				public int compare(Snapshot snap1, Snapshot snap2) {
-					return snap1.getTime().after(snap2.getTime()) ? -1 : (snap1.getTime().before(snap2.getTime())) ? 1 : 0;
-				}
-			});
-			 return todaySnapshots.get(0);
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return null;
+		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
+		ArrayList<Snapshot> todaySnapshots =  (ArrayList<Snapshot>) snapshotRepository.findByDate(dateWithoutTime);
+		Collections.sort(todaySnapshots, new Comparator<Snapshot>(){
+			@Override
+			public int compare(Snapshot snap1, Snapshot snap2) {
+				return snap1.getTime().after(snap2.getTime()) ? -1 : (snap1.getTime().before(snap2.getTime())) ? 1 : 0;
+			}
+		});
+		return todaySnapshots.get(0);	
 	}
 
 	@Override
