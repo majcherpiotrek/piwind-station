@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -22,11 +23,15 @@ import com.piotrmajcher.piwind.services.TemperatureService;
 @Component
 public class TemperatureServiceImpl implements TemperatureService {
 	
+	private static final Logger logger = Logger.getLogger(TemperatureServiceImpl.class);
+	
 	private static final String FETCH_INTERNAL_TEMP_SCRIPT_PATH = "./scripts/read_internal_temperature.py";
 	private static final String FETCH_EXTERNAL_TEMP_SCRIPT_PATH = "./scripts/read_external_temperature.py";
 	private static final String ERROR_FETCHING_INTERNAL_TEMPERATURE = "Error while fetching internal temperature data";
 	private static final String ERROR_FETCHING_EXTERNAL_TEMPERATURE = "Error while fetching external temperature data";
 	private static final String ERROR_WHILE_EXECUTING_SCRIPT = "Error occured while executing following script: ";
+	private static final String INFO_FETCHED_INTERNAL_TEMPERATURE = "Fetched internal temperature data";
+	private static final String INFO_FETCHED_EXTERNAL_TEMPERATURE = "Fetched external temperature data";
 	
 	@Autowired
 	private InternalTemperatureRepository internalTemperatureRepository;
@@ -49,7 +54,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 			
 			InternalTemperature internalTemperature = new InternalTemperature();
 			internalTemperature.setTemperatureCelsius(temperatureDouble);
-			System.out.println("Fetched internal temperature data");
+			logger.info(INFO_FETCHED_INTERNAL_TEMPERATURE);
 			internalTemperatureRepository.save(internalTemperature);
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -64,8 +69,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 			Assert.notNull(temperatureDouble, ERROR_FETCHING_EXTERNAL_TEMPERATURE);
 			
 			ExternalTemperature externalTemperature = new ExternalTemperature();
-			externalTemperature.setTemperatureCelsius(temperatureDouble);
-			System.out.println("Fetched external temperature data");
+			logger.info(INFO_FETCHED_EXTERNAL_TEMPERATURE);
 			externalTemperatureRepository.save(externalTemperature);
 		} catch(IOException e) {
 			e.printStackTrace();

@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,11 +33,13 @@ import com.piotrmajcher.piwind.services.WebcamService;
 
 @Component
 public class WebcamServiceImpl implements WebcamService{
+	
+	private static final Logger logger = Logger.getLogger(WebcamServiceImpl.class);
 
 	private static final String RM_COMMAND = "rm ";
 	private static final String TAKE_PICTURE_COMMAND = "raspistill -o ";
 	private static final String SNAPSHOT_FILENAME_PREFIX = "./snapshots/snapshot_"; //snapshot filename : snapshot_2017-09-21T12:56:23.5.jpg
-	
+	private static final String SNAPSHOT_SAVED_MESSAGE = "Snapshot saved: ";
 	@Autowired
 	private SnapshotRepository snapshotRepository;
 	
@@ -53,7 +56,7 @@ public class WebcamServiceImpl implements WebcamService{
     		snapshot.setSnapshotImage(snapshotData);
     		
     		Integer id = snapshotRepository.save(snapshot).getId();
-    		System.out.println("Snapshot saved");
+    		logger.info(SNAPSHOT_SAVED_MESSAGE + snapshotFilename);
     		
     		deleteISnapshotFile(snapshotFilename);	
     	} catch(IOException e) {
