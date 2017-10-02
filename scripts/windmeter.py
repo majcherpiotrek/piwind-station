@@ -57,8 +57,8 @@ try:
     rps = revs / measurement_time
     v_kmh = lsf / (1 + rps) + hsf * rps
     v_ms = v_kmh / 3.6
-    print('measurement_time_seconds: %d' %measurement_time)
-    print('avg_windspeed_mps: %f' %v_ms)
+    print('%d' %measurement_time)
+    print('%f' %v_ms)
     exit(0)
 except ValueError as e:
     print('Error while fetching windsensor data: ' )

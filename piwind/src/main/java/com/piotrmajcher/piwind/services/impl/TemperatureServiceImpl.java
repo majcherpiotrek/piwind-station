@@ -38,8 +38,8 @@ public class TemperatureServiceImpl implements TemperatureService {
 	@Autowired
 	private ExternalTemperatureRepository externalTemperatureRepository;
 	
-	@Transactional
-	@Scheduled(fixedRate = 10000)
+	//@Transactional
+	@Scheduled(fixedRate = 30000)
 	private void fetchAndSaveTemperatureSensorsData() {
 		fetchAndSaveExternalTemperature();
 		fetchAndSaveInternalTemperature();

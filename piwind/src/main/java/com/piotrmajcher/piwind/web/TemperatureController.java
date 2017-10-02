@@ -16,7 +16,7 @@ import com.piotrmajcher.piwind.services.TemperatureService;
 public class TemperatureController {
 	
 	@Autowired
-	TemperatureService temperatureService;
+	private TemperatureService temperatureService;
 	
 	@GetMapping(path="/all-external")
 	@CrossOrigin

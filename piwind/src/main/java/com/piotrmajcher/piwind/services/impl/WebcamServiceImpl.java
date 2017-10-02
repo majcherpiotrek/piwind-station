@@ -46,8 +46,8 @@ public class WebcamServiceImpl implements WebcamService{
 	@Autowired
 	private SnapshotRepository snapshotRepository;
 	
-    @Transactional
-    @Scheduled(fixedRate = 60000, initialDelay = 5000)
+    //@Transactional
+    @Scheduled(fixedRate = 30000, initialDelay = 5000)
     private void takePictureAndSaveToDB() {
     	try {
     		final String snapshotFilename = takePicture();
