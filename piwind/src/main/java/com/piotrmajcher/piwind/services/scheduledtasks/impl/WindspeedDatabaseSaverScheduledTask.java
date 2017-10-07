@@ -30,17 +30,17 @@ public class WindspeedDatabaseSaverScheduledTask implements DatabaseSaverSchedul
     @Autowired
     WindSpeedRepository windSpeedRepository;
 
-    @Scheduled(fixedRate = 30000, initialDelay = 15000)
+    @Scheduled(fixedRate = 20000)
     @Override
     public void fetchDataAndSaveToDatabase() {
         try {
             saveWindSpeed();
         } catch (CommandExecutionException e) {
             logger.error(ERROR_COMMAND_FAILED + " " + e.getMessage());
-            logger.error(e.getStackTrace());
+            e.printStackTrace();
         } catch (ScheduledTaskException e) {
             logger.error(ERROR_SCHEDULED_TASK_FAILED + " " + e.getMessage());
-            logger.error(e.getStackTrace());
+            e.printStackTrace();
         }
     }
 
