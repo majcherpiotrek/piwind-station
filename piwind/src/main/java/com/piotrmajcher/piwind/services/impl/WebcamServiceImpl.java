@@ -2,29 +2,18 @@ package com.piotrmajcher.piwind.services.impl;
 
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-import org.yaml.snakeyaml.extensions.compactnotation.CompactConstructor;
 
 import com.piotrmajcher.piwind.domain.Snapshot;
 import com.piotrmajcher.piwind.repositories.SnapshotRepository;
