@@ -1,6 +1,8 @@
 package com.piotrmajcher.piwind.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,14 +22,14 @@ public class TemperatureController {
 	
 	@GetMapping(path="/all-external")
 	@CrossOrigin
-	public @ResponseBody Iterable<ExternalTemperature> getAllExternalTemperatureData() {
-		return temperatureService.getAllExternalTemperatureData();
+	public ResponseEntity<Iterable<ExternalTemperature>> getAllExternalTemperatureData() {
+		return new ResponseEntity<>(temperatureService.getAllExternalTemperatureData(), HttpStatus.OK);
 	}
 	
 	@GetMapping(path="/all-internal")
 	@CrossOrigin
-	public @ResponseBody Iterable<InternalTemperature> getAllInternalTemperatureData() {
-		return temperatureService.getAllInternalTemperatureData();
+	public ResponseEntity<Iterable<InternalTemperature>> getAllInternalTemperatureData() {
+		return new ResponseEntity<>(temperatureService.getAllInternalTemperatureData(), HttpStatus.OK);
 	}
 
 	@GetMapping(path="/last-external")

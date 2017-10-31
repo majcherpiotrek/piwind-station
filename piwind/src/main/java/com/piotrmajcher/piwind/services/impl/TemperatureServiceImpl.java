@@ -9,8 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -35,20 +34,16 @@ public class TemperatureServiceImpl implements TemperatureService {
 	}
 
 	@Override
-	public ExternalTemperature getLastExternalTemperatureMeasurement() throws Exception {
-		//TODO what if findByDate returns null/empty list
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
-		List<ExternalTemperature> todayMeasurementsSortedDescending = externalTemperatureRepository.findByDateOrderByIdDesc(dateWithoutTime);
+	public ExternalTemperature getLastExternalTemperatureMeasurement() {
+		LocalDate localDate = LocalDate.now();
+		List<ExternalTemperature> todayMeasurementsSortedDescending = externalTemperatureRepository.findByDateOrderByIdDesc(localDate);
 		return todayMeasurementsSortedDescending.get(0);
 	}
 
 	@Override
-	public InternalTemperature getLastInternalTemperatureMeasurement() throws Exception {
-		//TODO what if findByDate returns null/empty list
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
-		List<InternalTemperature> todayMeasurementsSortedDescending = internalTemperatureRepository.findByDateOrderByIdDesc(dateWithoutTime);
+	public InternalTemperature getLastInternalTemperatureMeasurement() {
+		LocalDate localDate = LocalDate.now();
+		List<InternalTemperature> todayMeasurementsSortedDescending = internalTemperatureRepository.findByDateOrderByIdDesc(localDate);
 		return todayMeasurementsSortedDescending.get(0);
 	}
 }

@@ -1,6 +1,8 @@
 package com.piotrmajcher.piwind.domain;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -9,31 +11,25 @@ public class WindSpeed {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 
-    @Column(name = "wind_speed_mps")
+    @Column
     private Double windSpeedMPS;
 
-    @Column(name = "measurement_time_seconds")
+    @Column
     private Integer measurementTimeSeconds;
 
-    @Column(name="date")
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    @Column
+    private LocalDate date;
 
-    @Column(name="time")
-    @Temporal(TemporalType.TIME)
-    private Date time;
-
-    @Column(name = "timestamp", columnDefinition="DATETIME")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    @Column
+    private LocalDateTime dateTime;
 
     @PrePersist
     protected void onCreate() {
-        timestamp = new Date();
-        date = timestamp;
-        time = timestamp;
+        dateTime = LocalDateTime.now();
+        date = dateTime.toLocalDate();
     }
 
     public Integer getId() {
@@ -60,15 +56,12 @@ public class WindSpeed {
         this.measurementTimeSeconds = measurementTimeSeconds;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public Date getTime() {
-        return time;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
 }

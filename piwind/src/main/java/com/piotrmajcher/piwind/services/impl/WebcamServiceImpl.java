@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,10 +24,8 @@ public class WebcamServiceImpl implements WebcamService{
 
 	@Override
 	public Snapshot getLatestSnapshot() throws Exception {
-		//TODO what if findByDate returns null/empty list
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateWithoutTime = sdf.parse(sdf.format(new Date()));
-		List<Snapshot> todaySnapshots = snapshotRepository.findByDateOrderByIdDesc(dateWithoutTime);
+		LocalDate localDate = LocalDate.now();
+		List<Snapshot> todaySnapshots = snapshotRepository.findByDateOrderByIdDesc(localDate);
 		return todaySnapshots.get(0);	
 	}
 
