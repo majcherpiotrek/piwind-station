@@ -1,5 +1,8 @@
 package com.piotrmajcher.piwind.web;
 
+import com.piotrmajcher.piwind.domain.ExternalTemperature;
+import com.piotrmajcher.piwind.domain.InternalTemperature;
+import com.piotrmajcher.piwind.services.TemperatureService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -7,14 +10,9 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.piotrmajcher.piwind.domain.ExternalTemperature;
-import com.piotrmajcher.piwind.domain.InternalTemperature;
-import com.piotrmajcher.piwind.repositories.ExternalTemperatureRepository;
-import com.piotrmajcher.piwind.repositories.InternalTemperatureRepository;
-import com.piotrmajcher.piwind.services.TemperatureService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/temperature")
@@ -40,7 +38,7 @@ public class TemperatureController {
 	@ApiResponses( value = {
 			@ApiResponse(code = 200, message = "Successfully fetched all external temperature measurements.")
 	})
-	public ResponseEntity<Iterable<ExternalTemperature>> getAllExternalTemperatureData() {
+	public ResponseEntity<List<ExternalTemperature>> getAllExternalTemperatureData() {
 		return new ResponseEntity<>(temperatureService.getAllExternalTemperatureData(), HttpStatus.OK);
 	}
 	
@@ -50,7 +48,7 @@ public class TemperatureController {
 	@ApiResponses( value = {
 			@ApiResponse(code = 200, message = "Successfully fetched all internal temperature measurements.")
 	})
-	public ResponseEntity<Iterable<InternalTemperature>> getAllInternalTemperatureData() {
+	public ResponseEntity<List<InternalTemperature>> getAllInternalTemperatureData() {
 		return new ResponseEntity<>(temperatureService.getAllInternalTemperatureData(), HttpStatus.OK);
 	}
 

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "external_temperature")
+@Table
 public class ExternalTemperature {
 	
 	@Id

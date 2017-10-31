@@ -17,8 +17,8 @@ public interface WindSpeedRepository extends CrudRepository<WindSpeed, Integer> 
     @Query("SELECT wind FROM WindSpeed wind WHERE wind.dateTime >= :dateTime")
     List<WindSpeed> findAllMeasurementsFromSpecifiedDateTimeTillNow(@Param("dateTime") LocalDateTime dateTime);
 
-    @Query("SELECT wind FROM WindSpeed wind WHERE wind.dateTime = (SELECT MAX(wind2.dateTime) FROM WindSpeed wind2 WHERE wind2.date = :localDate)")
-    WindSpeed findLastMeasurementFromDate(@Param("localDate") LocalDate localDate);
+    @Query("SELECT wind FROM WindSpeed wind WHERE wind.id = (SELECT MAX(wind2.id) FROM WindSpeed wind2)")
+    WindSpeed findLastMeasurement();
 
     List<WindSpeed> findAll();
 }

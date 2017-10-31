@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 @Component
@@ -30,7 +29,7 @@ public class WindSpeedServiceImpl implements WindSpeedService{
 
     @Override
     public WindSpeed getLatestWindSpeedMeasurement() {
-        return windSpeedRepository.findLastMeasurementFromDate(LocalDate.now());
+        return windSpeedRepository.findLastMeasurement();
     }
 
     @Override

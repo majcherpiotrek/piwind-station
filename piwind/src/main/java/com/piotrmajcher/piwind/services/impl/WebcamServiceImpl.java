@@ -16,11 +16,15 @@ public class WebcamServiceImpl implements WebcamService{
 	
 	private static final Logger logger = Logger.getLogger(WebcamServiceImpl.class);
 	
+	private final SnapshotRepository snapshotRepository;
+
 	@Autowired
-	private SnapshotRepository snapshotRepository;
+	public WebcamServiceImpl(SnapshotRepository snapshotRepository) {
+		this.snapshotRepository = snapshotRepository;
+	}
 
 	@Override
 	public Snapshot getLatestSnapshot() {
-		return snapshotRepository.findLastSnapshotFromDate(LocalDate.now());
+		return snapshotRepository.findLastSnapshot();
 	}
 }

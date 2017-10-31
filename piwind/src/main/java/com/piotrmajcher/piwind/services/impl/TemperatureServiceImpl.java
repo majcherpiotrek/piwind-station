@@ -17,33 +17,33 @@ public class TemperatureServiceImpl implements TemperatureService {
 	
 	private static final Logger logger = Logger.getLogger(TemperatureServiceImpl.class);
 
-	@Autowired
-	private InternalTemperatureRepository internalTemperatureRepository;
+	private final InternalTemperatureRepository internalTemperatureRepository;
 	
+	private final ExternalTemperatureRepository externalTemperatureRepository;
+
 	@Autowired
-	private ExternalTemperatureRepository externalTemperatureRepository;
+	public TemperatureServiceImpl(InternalTemperatureRepository internalTemperatureRepository, ExternalTemperatureRepository externalTemperatureRepository) {
+		this.internalTemperatureRepository = internalTemperatureRepository;
+		this.externalTemperatureRepository = externalTemperatureRepository;
+	}
 
 	@Override
-	public Iterable<ExternalTemperature> getAllExternalTemperatureData() {
+	public List<ExternalTemperature> getAllExternalTemperatureData() {
 		return externalTemperatureRepository.findAll();
 	}
 
 	@Override
-	public Iterable<InternalTemperature> getAllInternalTemperatureData() {
+	public List<InternalTemperature> getAllInternalTemperatureData() {
 		return internalTemperatureRepository.findAll();
 	}
 
 	@Override
 	public ExternalTemperature getLastExternalTemperatureMeasurement() {
-		LocalDate localDate = LocalDate.now();
-		List<ExternalTemperature> todayMeasurementsSortedDescending = externalTemperatureRepository.findByDateOrderByIdDesc(localDate);
-		return todayMeasurementsSortedDescending.get(0);
+		return externalTemperatureRepository.findLastMeasurement();
 	}
 
 	@Override
 	public InternalTemperature getLastInternalTemperatureMeasurement() {
-		LocalDate localDate = LocalDate.now();
-		List<InternalTemperature> todayMeasurementsSortedDescending = internalTemperatureRepository.findByDateOrderByIdDesc(localDate);
-		return todayMeasurementsSortedDescending.get(0);
+		return internalTemperatureRepository.findLastMeasurement();
 	}
 }

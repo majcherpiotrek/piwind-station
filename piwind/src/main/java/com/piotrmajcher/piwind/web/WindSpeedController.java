@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/windspeed")
 @CrossOrigin
 @Api(
-        description = "\nEndpoint for getting the wind speed measurements and statistics. Data available in meters per second, " +
+        description = "Endpoint for getting the wind speed measurements and statistics. Data available in meters per second, " +
                 "knots or kilometers per hour."
 )
 public class WindSpeedController {
@@ -66,7 +66,7 @@ public class WindSpeedController {
          return new ResponseEntity<>(windSpeedService.getWindSpeedMeasurementsFromLastXMinutes(minutes), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/average/{minutes}/minutes/knots")
+    @GetMapping(path = "/last/{minutes}/minutes/average/knots")
     @CrossOrigin
     @ApiOperation( value = "Returns the avarage windspeed from all the measurements from the last X minutes in knots.")
     @ApiResponses( value = {
@@ -86,7 +86,7 @@ public class WindSpeedController {
         return new ResponseEntity<>(windSpeedService.getAverageWindSpeedFromLastXMinutesKnots(minutes), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/average/{minutes}/minutes/mps")
+    @GetMapping(path = "/last/{minutes}/minutes/average/mps")
     @CrossOrigin
     @ApiOperation( value = "Returns the avarage windspeed from all the measurements from the last X minutes in meters per second.")
     @ApiResponses( value = {
@@ -106,7 +106,7 @@ public class WindSpeedController {
         return new ResponseEntity<>(windSpeedService.getAverageWindSpeedFromLastXMinutesMps(minutes), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/average/{minutes}/minutes/kmh")
+    @GetMapping(path = "/last/{minutes}/minutes/average/kmh")
     @CrossOrigin
     @ApiOperation( value = "Returns the avarage windspeed from all the measurements from the last X minutes in kilmeters per hour.")
     @ApiResponses( value = {
