@@ -1,6 +1,6 @@
 package com.piotrmajcher.piwind.services.utils.impl;
 
-import com.piotrmajcher.piwind.services.utils.CommandExecutionException;
+import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
 import com.piotrmajcher.piwind.services.utils.CommandExecutor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;

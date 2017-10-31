@@ -1,4 +1,4 @@
-package com.piotrmajcher.piwind.services.utils;
+package com.piotrmajcher.piwind.services.utils.exceptions;
 
 public class TemperatureReaderException extends Exception{
 

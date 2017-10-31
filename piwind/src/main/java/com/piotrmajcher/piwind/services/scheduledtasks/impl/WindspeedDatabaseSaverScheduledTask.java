@@ -5,7 +5,7 @@ import com.piotrmajcher.piwind.repositories.WindSpeedRepository;
 import com.piotrmajcher.piwind.services.scheduledtasks.DatabaseSaverScheduledTask;
 import com.piotrmajcher.piwind.services.scheduledtasks.ScheduledTaskException;
 import com.piotrmajcher.piwind.services.utils.WindSpeedReader;
-import com.piotrmajcher.piwind.services.utils.WindSpeedReaderException;
+import com.piotrmajcher.piwind.services.utils.exceptions.WindSpeedReaderException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

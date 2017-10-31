@@ -1,10 +1,10 @@
 package com.piotrmajcher.piwind.services.utils.impl;
 
 import com.piotrmajcher.piwind.domain.Snapshot;
-import com.piotrmajcher.piwind.services.utils.CommandExecutionException;
+import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
 import com.piotrmajcher.piwind.services.utils.CommandExecutor;
 import com.piotrmajcher.piwind.services.utils.SnapshotReader;
-import com.piotrmajcher.piwind.services.utils.SnapshotReaderException;
+import com.piotrmajcher.piwind.services.utils.exceptions.SnapshotReaderException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

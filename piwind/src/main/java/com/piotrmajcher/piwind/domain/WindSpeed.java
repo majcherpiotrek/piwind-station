@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "wind_speed")
+@Table
 public class WindSpeed {
 
     @Id

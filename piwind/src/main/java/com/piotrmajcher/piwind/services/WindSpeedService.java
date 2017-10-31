@@ -3,9 +3,19 @@ package com.piotrmajcher.piwind.services;
 
 import com.piotrmajcher.piwind.domain.WindSpeed;
 
+import java.util.List;
+
 public interface WindSpeedService {
 
-    public WindSpeed getLatestWindSpeedMeasurement() throws Exception;
+    WindSpeed getLatestWindSpeedMeasurement();
 
-    public Iterable<WindSpeed> getAllWindSpeedMeasurements();
+    List<WindSpeed> getAllWindSpeedMeasurements();
+
+    List<WindSpeed> getWindSpeedMeasurementsFromLastXMinutes(int minutes);
+
+    Double getAverageWindSpeedFromLastXMinutesKnots(int minutes);
+
+    Double getAverageWindSpeedFromLastXMinutesMps(int minutes);
+
+    Double getAverageWindSpeedFromLastXMinutesKmh(int minutes);
 }

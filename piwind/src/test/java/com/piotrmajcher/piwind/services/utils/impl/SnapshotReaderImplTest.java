@@ -1,8 +1,8 @@
 package com.piotrmajcher.piwind.services.utils.impl;
 
-import com.piotrmajcher.piwind.services.utils.CommandExecutionException;
+import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
 import com.piotrmajcher.piwind.services.utils.CommandExecutor;
-import com.piotrmajcher.piwind.services.utils.SnapshotReaderException;
+import com.piotrmajcher.piwind.services.utils.exceptions.SnapshotReaderException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

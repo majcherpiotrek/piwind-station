@@ -7,6 +7,7 @@ import com.piotrmajcher.piwind.repositories.InternalTemperatureRepository;
 import com.piotrmajcher.piwind.services.scheduledtasks.DatabaseSaverScheduledTask;
 import com.piotrmajcher.piwind.services.scheduledtasks.ScheduledTaskException;
 import com.piotrmajcher.piwind.services.utils.*;
+import com.piotrmajcher.piwind.services.utils.exceptions.TemperatureReaderException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

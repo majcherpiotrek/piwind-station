@@ -8,10 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 
 @Component
@@ -24,6 +21,6 @@ public class WebcamServiceImpl implements WebcamService{
 
 	@Override
 	public Snapshot getLatestSnapshot() {
-		return snapshotRepository.findLastSnapshot(LocalDate.now());
+		return snapshotRepository.findLastSnapshotFromDate(LocalDate.now());
 	}
 }

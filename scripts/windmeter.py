@@ -9,12 +9,8 @@ HSF_KEY = "high_wind_speed_factor"
 LSF_KEY = "low_wind_speed_factor"
 RADIUS_KEY = "windmeter_radius"
 MEASUREMENT_TIME_KEY = "measurement_time"
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(10, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-
-revs = 0
-edges = 0
+CHANNEL_KEY = "windmeter_channel"
+MIN_RPS_KEY = "min_rps"
 
 def __get_config():
     config_file = None
@@ -49,14 +45,26 @@ config = __get_config()
 measurement_time = config[MEASUREMENT_TIME_KEY]
 lsf = config[LSF_KEY]
 hsf = config[HSF_KEY]
+channel = config[CHANNEL_KEY]
+min_rps = config[MIN_RPS_KEY]
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(channel, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+
+revs = 0
+edges = 0
 
 try:
-    GPIO.add_event_detect(10, GPIO.FALLING, callback=__count_revolutions)
+    GPIO.add_event_detect(channel, GPIO.FALLING, callback=__count_revolutions)
     sleep(measurement_time)
     GPIO.cleanup()
     rps = revs / measurement_time
-    v_kmh = lsf / (1 + rps) + hsf * rps
-    v_ms = v_kmh / 3.6
+    if rps <= min_rps:
+        v_kmh = 0
+        v_ms = 0
+    else:
+        v_kmh = lsf / (1 + rps) + hsf * rps
+        v_ms = v_kmh / 3.6
     print('%d' %measurement_time)
     print('%f' %v_ms)
     exit(0)

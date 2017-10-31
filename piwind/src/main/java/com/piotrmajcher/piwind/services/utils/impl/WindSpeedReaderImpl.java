@@ -1,10 +1,10 @@
 package com.piotrmajcher.piwind.services.utils.impl;
 
 import com.piotrmajcher.piwind.domain.WindSpeed;
-import com.piotrmajcher.piwind.services.utils.CommandExecutionException;
+import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
 import com.piotrmajcher.piwind.services.utils.CommandExecutor;
 import com.piotrmajcher.piwind.services.utils.WindSpeedReader;
-import com.piotrmajcher.piwind.services.utils.WindSpeedReaderException;
+import com.piotrmajcher.piwind.services.utils.exceptions.WindSpeedReaderException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

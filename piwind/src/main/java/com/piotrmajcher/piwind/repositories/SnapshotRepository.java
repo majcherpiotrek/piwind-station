@@ -11,5 +11,5 @@ import java.util.List;
 public interface SnapshotRepository extends CrudRepository<Snapshot, Integer>{
 
 	@Query("SELECT snap FROM Snapshot snap WHERE snap.dateTime = (SELECT MAX(snap2.dateTime) FROM Snapshot snap2 WHERE snap2.date = :localDate)")
-	Snapshot findLastSnapshot(@Param("localDate") LocalDate localDate);
+	Snapshot findLastSnapshotFromDate(@Param("localDate") LocalDate localDate);
 }
