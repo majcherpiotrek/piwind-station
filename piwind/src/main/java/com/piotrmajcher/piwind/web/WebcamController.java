@@ -19,8 +19,7 @@ import com.piotrmajcher.piwind.services.WebcamService;
 )
 public class WebcamController {
 
-	final
-	WebcamService webcamService;
+	private final WebcamService webcamService;
 
 	@Autowired
 	public WebcamController(WebcamService webcamService) {
