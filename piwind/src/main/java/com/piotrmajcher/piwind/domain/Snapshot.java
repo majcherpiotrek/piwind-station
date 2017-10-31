@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "webcam_snapshots")
+@Table
 public class Snapshot {
 	
 	@Id

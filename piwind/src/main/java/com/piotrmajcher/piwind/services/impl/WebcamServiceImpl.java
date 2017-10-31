@@ -23,14 +23,7 @@ public class WebcamServiceImpl implements WebcamService{
 	private SnapshotRepository snapshotRepository;
 
 	@Override
-	public Snapshot getLatestSnapshot() throws Exception {
-		LocalDate localDate = LocalDate.now();
-		List<Snapshot> todaySnapshots = snapshotRepository.findByDateOrderByIdDesc(localDate);
-		return todaySnapshots.get(0);	
-	}
-
-	@Override
-	public Iterable<Snapshot> getAllSnapshots() {
-		return snapshotRepository.findAll();
+	public Snapshot getLatestSnapshot() {
+		return snapshotRepository.findLastSnapshot(LocalDate.now());
 	}
 }
