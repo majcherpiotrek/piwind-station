@@ -12,8 +12,6 @@ import java.util.List;
 
 public interface WindSpeedRepository extends CrudRepository<WindSpeed, Integer> {
 
-    List<WindSpeed> findByDateOrderByIdDesc(LocalDate date);
-
     @Query("SELECT wind FROM WindSpeed wind WHERE wind.dateTime >= :dateTime")
     List<WindSpeed> findAllMeasurementsFromSpecifiedDateTimeTillNow(@Param("dateTime") LocalDateTime dateTime);
 

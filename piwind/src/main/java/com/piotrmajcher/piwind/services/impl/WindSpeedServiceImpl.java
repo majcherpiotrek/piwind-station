@@ -3,8 +3,12 @@ package com.piotrmajcher.piwind.services.impl;
 import com.piotrmajcher.piwind.domain.WindSpeed;
 import com.piotrmajcher.piwind.repositories.WindSpeedRepository;
 import com.piotrmajcher.piwind.services.WindSpeedService;
+import com.piotrmajcher.piwind.services.utils.EntityToTOConverter;
 import com.piotrmajcher.piwind.services.utils.WindSpeedUnitsConverter;
+import com.piotrmajcher.piwind.services.utils.impl.WindSpeedEntityConverter;
 import com.piotrmajcher.piwind.services.utils.impl.WindSpeedUnitsConverterImpl;
+import com.piotrmajcher.piwind.tos.WindSpeedTO;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,27 +24,29 @@ public class WindSpeedServiceImpl implements WindSpeedService{
 
     private final WindSpeedRepository windSpeedRepository;
     private WindSpeedUnitsConverter windSpeedUnitsConverter;
-
+    private EntityToTOConverter<WindSpeed, WindSpeedTO> entityConverter;
+    
     @Autowired
     public WindSpeedServiceImpl(WindSpeedRepository windSpeedRepository) {
         this.windSpeedRepository = windSpeedRepository;
         this.windSpeedUnitsConverter = new WindSpeedUnitsConverterImpl();
+        this.entityConverter = new WindSpeedEntityConverter();
     }
 
     @Override
-    public WindSpeed getLatestWindSpeedMeasurement() {
-        return windSpeedRepository.findLastMeasurement();
+    public WindSpeedTO getLatestWindSpeedMeasurement() {
+        return entityConverter.entityToTransferObject(windSpeedRepository.findLastMeasurement());
     }
 
     @Override
-    public List<WindSpeed> getAllWindSpeedMeasurements() {
-        return windSpeedRepository.findAll();
+    public List<WindSpeedTO> getAllWindSpeedMeasurements() {
+        return entityConverter.entityToTransferObject(windSpeedRepository.findAll());
     }
 
     @Override
-    public List<WindSpeed> getWindSpeedMeasurementsFromLastXMinutes(int minutes) {
+    public List<WindSpeedTO> getWindSpeedMeasurementsFromLastXMinutes(int minutes) {
         LocalDateTime fromDate = LocalDateTime.now().minusMinutes(minutes);
-        return windSpeedRepository.findAllMeasurementsFromSpecifiedDateTimeTillNow(fromDate);
+        return entityConverter.entityToTransferObject(windSpeedRepository.findAllMeasurementsFromSpecifiedDateTimeTillNow(fromDate));
     }
 
     @Override

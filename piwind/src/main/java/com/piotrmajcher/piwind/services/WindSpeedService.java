@@ -2,16 +2,17 @@ package com.piotrmajcher.piwind.services;
 
 
 import com.piotrmajcher.piwind.domain.WindSpeed;
+import com.piotrmajcher.piwind.tos.WindSpeedTO;
 
 import java.util.List;
 
 public interface WindSpeedService {
 
-    WindSpeed getLatestWindSpeedMeasurement();
+    WindSpeedTO getLatestWindSpeedMeasurement();
 
-    List<WindSpeed> getAllWindSpeedMeasurements();
+    List<WindSpeedTO> getAllWindSpeedMeasurements();
 
-    List<WindSpeed> getWindSpeedMeasurementsFromLastXMinutes(int minutes);
+    List<WindSpeedTO> getWindSpeedMeasurementsFromLastXMinutes(int minutes);
 
     Double getAverageWindSpeedFromLastXMinutesKnots(int minutes);
 

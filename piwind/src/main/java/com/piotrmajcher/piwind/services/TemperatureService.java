@@ -2,16 +2,17 @@ package com.piotrmajcher.piwind.services;
 
 import com.piotrmajcher.piwind.domain.ExternalTemperature;
 import com.piotrmajcher.piwind.domain.InternalTemperature;
+import com.piotrmajcher.piwind.tos.TemperatureTO;
 
 import java.util.List;
 
 public interface TemperatureService {
 	
-	List<ExternalTemperature> getAllExternalTemperatureData();
+	List<TemperatureTO> getAllExternalTemperatureData();
 	
-	List<InternalTemperature> getAllInternalTemperatureData();
+	List<TemperatureTO> getAllInternalTemperatureData();
 	
-	ExternalTemperature getLastExternalTemperatureMeasurement();
+	TemperatureTO getLastExternalTemperatureMeasurement();
 	
-	InternalTemperature getLastInternalTemperatureMeasurement();
+	TemperatureTO getLastInternalTemperatureMeasurement();
 }

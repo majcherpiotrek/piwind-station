@@ -30,6 +30,8 @@ dependencies {
  	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1'
  	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
  	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+ 	compile group: 'com.fasterxml.jackson.module', name: 'jackson-modules-java8', version: '2.9.2', ext: 'pom'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.2'
 	testCompile 'org.mockito:mockito-core:2.7.22'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

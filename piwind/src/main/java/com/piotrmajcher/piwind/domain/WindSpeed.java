@@ -21,15 +21,11 @@ public class WindSpeed {
     private Integer measurementTimeSeconds;
 
     @Column
-    private LocalDate date;
-
-    @Column
     private LocalDateTime dateTime;
 
     @PrePersist
     protected void onCreate() {
         dateTime = LocalDateTime.now();
-        date = dateTime.toLocalDate();
     }
 
     public Integer getId() {
@@ -54,10 +50,6 @@ public class WindSpeed {
 
     public void setMeasurementTimeSeconds(Integer measurementTimeSeconds) {
         this.measurementTimeSeconds = measurementTimeSeconds;
-    }
-
-    public LocalDate getDate() {
-        return date;
     }
 
     public LocalDateTime getDateTime() {

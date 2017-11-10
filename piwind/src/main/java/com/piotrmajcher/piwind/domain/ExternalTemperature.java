@@ -23,17 +23,13 @@ public class ExternalTemperature {
 	
 	@Column
 	private Double temperatureCelsius;
-	
-	@Column
-	private LocalDate date;
-	
+		
 	@Column
 	private LocalDateTime dateTime;
 	
 	@PrePersist
 	protected void onCreate() {
 		dateTime = LocalDateTime.now();
-		date = dateTime.toLocalDate();
 	}
 
 	public Integer getId() {
@@ -50,10 +46,6 @@ public class ExternalTemperature {
 
 	public void setTemperatureCelsius(Double temperatureCelsius) {
 		this.temperatureCelsius = temperatureCelsius;
-	}
-
-	public LocalDate getDate() {
-		return date;
 	}
 	
 	public LocalDateTime getDateTime() {

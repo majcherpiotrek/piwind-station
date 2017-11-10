@@ -2,6 +2,8 @@ package com.piotrmajcher.piwind.web;
 
 import com.piotrmajcher.piwind.domain.WindSpeed;
 import com.piotrmajcher.piwind.services.WindSpeedService;
+import com.piotrmajcher.piwind.tos.WindSpeedTO;
+
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,7 @@ public class WindSpeedController {
     @ApiResponses( value = {
             @ApiResponse(code = 200, message = "Successfully fetched all wind speed measurements.")
     })
-    public @ResponseBody List<WindSpeed> getAllWindSpeedData() {
+    public @ResponseBody List<WindSpeedTO> getAllWindSpeedData() {
         return windSpeedService.getAllWindSpeedMeasurements();
     }
 
@@ -42,7 +44,7 @@ public class WindSpeedController {
     @ApiResponses( value = {
             @ApiResponse(code = 200, message = "Successfully fetched the latest wind speed measurement.")
     })
-    public @ResponseBody WindSpeed getLastWindSpeedMeasurement() {
+    public @ResponseBody WindSpeedTO getLastWindSpeedMeasurement() {
         return windSpeedService.getLatestWindSpeedMeasurement();
     }
 
@@ -53,7 +55,7 @@ public class WindSpeedController {
             @ApiResponse(code = 200, message = "Successfully fetched measurements form the specified period."),
             @ApiResponse(code = 400, message = "Incorrect minutes parameter")
     })
-    public ResponseEntity<List<WindSpeed>> getAllWindSpeedMeasurementsFromLastXMinutes(
+    public ResponseEntity<List<WindSpeedTO>> getAllWindSpeedMeasurementsFromLastXMinutes(
             @ApiParam(
                     name = "minutes",
                     value = "Specifies the period of time from which to get the wind speed measurements. " +

@@ -1,18 +1,23 @@
 package com.piotrmajcher.piwind.web;
 
-import com.piotrmajcher.piwind.domain.ExternalTemperature;
-import com.piotrmajcher.piwind.domain.InternalTemperature;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.piotrmajcher.piwind.services.TemperatureService;
+import com.piotrmajcher.piwind.tos.TemperatureTO;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/temperature")
@@ -38,7 +43,7 @@ public class TemperatureController {
 	@ApiResponses( value = {
 			@ApiResponse(code = 200, message = "Successfully fetched all external temperature measurements.")
 	})
-	public ResponseEntity<List<ExternalTemperature>> getAllExternalTemperatureData() {
+	public ResponseEntity<List<TemperatureTO>> getAllExternalTemperatureData() {
 		return new ResponseEntity<>(temperatureService.getAllExternalTemperatureData(), HttpStatus.OK);
 	}
 	
@@ -48,7 +53,7 @@ public class TemperatureController {
 	@ApiResponses( value = {
 			@ApiResponse(code = 200, message = "Successfully fetched all internal temperature measurements.")
 	})
-	public ResponseEntity<List<InternalTemperature>> getAllInternalTemperatureData() {
+	public ResponseEntity<List<TemperatureTO>> getAllInternalTemperatureData() {
 		return new ResponseEntity<>(temperatureService.getAllInternalTemperatureData(), HttpStatus.OK);
 	}
 
@@ -58,7 +63,7 @@ public class TemperatureController {
 	@ApiResponses( value = {
 			@ApiResponse(code = 200, message = "Successfully fetched last external temperature measurement.")
 	})
-	public @ResponseBody ExternalTemperature getLastExternalTemperatureMeasurement() throws Exception {
+	public @ResponseBody TemperatureTO getLastExternalTemperatureMeasurement() throws Exception {
 		return temperatureService.getLastExternalTemperatureMeasurement();
 	}
 
@@ -68,7 +73,7 @@ public class TemperatureController {
 	@ApiResponses( value = {
 			@ApiResponse(code = 200, message = "Successfully fetched last internal temperature measurement.")
 	})
-	public @ResponseBody InternalTemperature getLastInternalTemperatureMeasurement() throws Exception {
+	public @ResponseBody TemperatureTO getLastInternalTemperatureMeasurement() throws Exception {
 		return temperatureService.getLastInternalTemperatureMeasurement();
 	}
 }
