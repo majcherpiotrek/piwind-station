@@ -6,13 +6,9 @@ import com.piotrmajcher.piwind.tos.TemperatureTO;
 
 import java.util.List;
 
-public interface TemperatureService {
-	
-	List<TemperatureTO> getAllExternalTemperatureData();
-	
+public interface InternalTemperatureService {
+		
 	List<TemperatureTO> getAllInternalTemperatureData();
-	
-	TemperatureTO getLastExternalTemperatureMeasurement();
 	
 	TemperatureTO getLastInternalTemperatureMeasurement();
 }
