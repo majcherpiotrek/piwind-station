@@ -1,17 +1,16 @@
 package com.piotrmajcher.piwind.services.scheduledtasks.impl;
 
-import com.piotrmajcher.piwind.domain.ExternalTemperature;
-import com.piotrmajcher.piwind.domain.InternalTemperature;
-import com.piotrmajcher.piwind.repositories.ExternalTemperatureRepository;
-import com.piotrmajcher.piwind.repositories.InternalTemperatureRepository;
-import com.piotrmajcher.piwind.services.scheduledtasks.DatabaseSaverScheduledTask;
-import com.piotrmajcher.piwind.services.scheduledtasks.ScheduledTaskException;
-import com.piotrmajcher.piwind.services.utils.*;
-import com.piotrmajcher.piwind.services.utils.exceptions.TemperatureReaderException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.piotrmajcher.piwind.domain.InternalTemperature;
+import com.piotrmajcher.piwind.repositories.InternalTemperatureRepository;
+import com.piotrmajcher.piwind.services.scheduledtasks.DatabaseSaverScheduledTask;
+import com.piotrmajcher.piwind.services.scheduledtasks.ScheduledTaskException;
+import com.piotrmajcher.piwind.services.utils.TemperatureReader;
+import com.piotrmajcher.piwind.services.utils.exceptions.TemperatureReaderException;
 
 @Component
 public class TemparatureDatabaseSaverScheduledTask implements DatabaseSaverScheduledTask{
@@ -19,15 +18,10 @@ public class TemparatureDatabaseSaverScheduledTask implements DatabaseSaverSched
     private static final Logger logger = Logger.getLogger(TemparatureDatabaseSaverScheduledTask.class);
 
     private static final String INFO_FETCHED_INTERNAL_TEMPERATURE_DATA = "Fetched internal temperature data:";
-    private static final String INFO_FETCHED_EXTERNAL_TEMPERATURE_DATA = "Fetched external temperature data:";
-    private static final String ERROR_COMMAND_FAILED = "Failed to execute fetch temperature command:";
     private static final String ERROR_SCHEDULED_TASK_FAILED = "Failed to execute temperature scheduled task:";
 
     @Autowired
     private InternalTemperatureRepository internalTemperatureRepository;
-
-    @Autowired
-    private ExternalTemperatureRepository externalTemperatureRepository;
 
     @Autowired
     private TemperatureReader temperatureReader;
@@ -38,31 +32,21 @@ public class TemparatureDatabaseSaverScheduledTask implements DatabaseSaverSched
 
         try {
             saveInternalTemperature();
-            saveExternalTemperature();
         } catch (ScheduledTaskException e) {
             logger.error(ERROR_SCHEDULED_TASK_FAILED + " " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private void saveExternalTemperature() throws ScheduledTaskException {
-        ExternalTemperature externalTemperature;
-        try {
-            externalTemperature = temperatureReader.fetchExternalTemperature();
-        } catch (TemperatureReaderException e) {
-            throw new ScheduledTaskException(e.getMessage());
-        }
-        externalTemperatureRepository.save(externalTemperature);
-        logger.info(INFO_FETCHED_EXTERNAL_TEMPERATURE_DATA + " " + externalTemperature.getTemperatureCelsius());
-    }
-
     private void saveInternalTemperature() throws ScheduledTaskException {
-        InternalTemperature internalTemperature;
+        Double temperature = null;
         try {
-            internalTemperature = temperatureReader.fetchInternalTemperature();
+            temperature = temperatureReader.fetchInternalTemperature();
         } catch (TemperatureReaderException e) {
             throw new ScheduledTaskException(e.getMessage());
         }
+        InternalTemperature internalTemperature = new InternalTemperature();
+        internalTemperature.setTemperatureCelsius(temperature);
         internalTemperatureRepository.save(internalTemperature);
         logger.info(INFO_FETCHED_INTERNAL_TEMPERATURE_DATA + " " + internalTemperature.getTemperatureCelsius());
     }

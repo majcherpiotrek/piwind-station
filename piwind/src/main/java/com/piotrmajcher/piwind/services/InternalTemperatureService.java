@@ -1,10 +1,8 @@
 package com.piotrmajcher.piwind.services;
 
-import com.piotrmajcher.piwind.domain.ExternalTemperature;
-import com.piotrmajcher.piwind.domain.InternalTemperature;
-import com.piotrmajcher.piwind.tos.TemperatureTO;
-
 import java.util.List;
+
+import com.piotrmajcher.piwind.tos.TemperatureTO;
 
 public interface InternalTemperatureService {
 		

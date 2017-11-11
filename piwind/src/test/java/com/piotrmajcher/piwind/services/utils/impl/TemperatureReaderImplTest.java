@@ -107,7 +107,7 @@ public class TemperatureReaderImplTest {
         List<String> resultsList = new LinkedList<>();
         resultsList.add(TEMPERATURE.toString());
         Mockito.when(commandExecutor.executeCommand(FETCH_INTERNAL_TEMP_COMMAND)).thenReturn(resultsList);
-        assertEquals(TEMPERATURE, temperatureReader.fetchInternalTemperature().getTemperatureCelsius(), 0);
+        assertEquals(TEMPERATURE, temperatureReader.fetchInternalTemperature(), 0);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class TemperatureReaderImplTest {
         List<String> resultsList = new LinkedList<>();
         resultsList.add(TEMPERATURE.toString());
         Mockito.when(commandExecutor.executeCommand(FETCH_EXTERNAL_TEMP_COMMAND)).thenReturn(resultsList);
-        assertEquals(TEMPERATURE, temperatureReader.fetchExternalTemperature().getTemperatureCelsius(), 0);
+        assertEquals(TEMPERATURE, temperatureReader.fetchExternalTemperature(), 0);
     }
 
 
