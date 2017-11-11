@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.piotrmajcher.piwind.dto.TemperatureTO;
 import com.piotrmajcher.piwind.services.InternalTemperatureService;
-import com.piotrmajcher.piwind.tos.TemperatureTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.piotrmajcher.piwind.dto.MeteoDataTO;
 import com.piotrmajcher.piwind.services.MeteoDataService;
-import com.piotrmajcher.piwind.tos.MeteoDataTO;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

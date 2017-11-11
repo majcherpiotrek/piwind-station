@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.piotrmajcher.piwind.domain.MeteoData;
+import com.piotrmajcher.piwind.dto.MeteoDataTO;
 import com.piotrmajcher.piwind.repositories.MeteoDataRepository;
 import com.piotrmajcher.piwind.services.MeteoDataService;
-import com.piotrmajcher.piwind.tos.MeteoDataTO;
 
 @Service
 public class MeteoDataServiceImpl implements MeteoDataService {

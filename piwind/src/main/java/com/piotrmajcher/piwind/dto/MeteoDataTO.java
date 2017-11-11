@@ -1,4 +1,4 @@
-package com.piotrmajcher.piwind.tos;
+package com.piotrmajcher.piwind.dto;
 
 import java.time.LocalDateTime;
 
@@ -54,6 +54,7 @@ public class MeteoDataTO {
 
 	@Override
 	public String toString() {
-		return "MeteoDataTO [temperature=" + temperature + ", windSpeed=" + windSpeed + ", dateTime=" + dateTime + "]";
+		return "MeteoDataTO [temperature=" + temperature + ", windSpeed=" + windSpeed + ", windDirection="
+				+ windDirection + ", dateTime=" + dateTime + "]";
 	}
 }

@@ -2,7 +2,7 @@ package com.piotrmajcher.piwind.services;
 
 import java.util.List;
 
-import com.piotrmajcher.piwind.tos.MeteoDataTO;
+import com.piotrmajcher.piwind.dto.MeteoDataTO;
 
 public interface MeteoDataService {
 

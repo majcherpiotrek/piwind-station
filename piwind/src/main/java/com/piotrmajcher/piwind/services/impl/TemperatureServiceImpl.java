@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.piotrmajcher.piwind.domain.InternalTemperature;
+import com.piotrmajcher.piwind.dto.TemperatureTO;
 import com.piotrmajcher.piwind.repositories.InternalTemperatureRepository;
 import com.piotrmajcher.piwind.services.InternalTemperatureService;
 import com.piotrmajcher.piwind.services.utils.EntityToTOConverter;
 import com.piotrmajcher.piwind.services.utils.impl.InternalTemperatureEntityConverter;
-import com.piotrmajcher.piwind.tos.TemperatureTO;
 
 @Component
 public class TemperatureServiceImpl implements InternalTemperatureService {
