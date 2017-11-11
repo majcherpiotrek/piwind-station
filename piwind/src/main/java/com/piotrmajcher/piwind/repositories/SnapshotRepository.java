@@ -1,12 +1,9 @@
 package com.piotrmajcher.piwind.repositories;
 
-import com.piotrmajcher.piwind.domain.Snapshot;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.piotrmajcher.piwind.domain.Snapshot;
 
 public interface SnapshotRepository extends CrudRepository<Snapshot, Integer>{
 

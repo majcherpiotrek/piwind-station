@@ -1,4 +1,4 @@
-package com.piotrmajcher.piwind.tos;
+package com.piotrmajcher.piwind.dto;
 
 import java.time.LocalDateTime;
 
@@ -7,30 +7,20 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-public class WindSpeedTO {
-
-	private double windSpeedMPS;
+public class TemperatureTO {
 	
-	private int measurementTimeSeconds;
+	private double temperatureCelsius;
 	
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dateTime;
 
-	public double getWindSpeedMPS() {
-		return windSpeedMPS;
+	public double getTemperatureCelsius() {
+		return temperatureCelsius;
 	}
 
-	public void setWindSpeedMPS(double windSpeedMPS) {
-		this.windSpeedMPS = windSpeedMPS;
-	}
-
-	public int getMeasurementTimeSeconds() {
-		return measurementTimeSeconds;
-	}
-
-	public void setMeasurementTimeSeconds(int measurementTimeSeconds) {
-		this.measurementTimeSeconds = measurementTimeSeconds;
+	public void setTemperatureCelsius(double temperatureCelsius) {
+		this.temperatureCelsius = temperatureCelsius;
 	}
 
 	public LocalDateTime getDateTime() {
