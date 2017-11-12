@@ -22,6 +22,7 @@ public class MeteoDataDatabaseSaverScheduledTaskImpl implements DatabaseSaverSch
 
 	private static final String FETCH_TEMP_FAILED = "Fetching the external temperature failed";
 	private static final String FETCH_WIND_FAILED = "Fetching the wind speed failed";
+	private static final String SAVED_METEO_DATA = "Saved new meteo data: ";
     
     private MeteoDataRepository meteoDataRepository;
     private TemperatureReader temperatureReader;
@@ -39,7 +40,7 @@ public class MeteoDataDatabaseSaverScheduledTaskImpl implements DatabaseSaverSch
 		
 	}
     
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 4000)
 	@Override
 	public void fetchDataAndSaveToDatabase() {
     	
@@ -73,5 +74,6 @@ public class MeteoDataDatabaseSaverScheduledTaskImpl implements DatabaseSaverSch
 		meteoData.setWindSpeedMeasurementTimeSeconds(windSpeed.getMeasurementTimeSeconds());
 		
 		meteoDataRepository.save(meteoData);
+		logger.debug(SAVED_METEO_DATA + meteoData.toString());
 	}
 }

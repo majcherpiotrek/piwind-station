@@ -33,6 +33,6 @@ public class WebcamController {
 			@ApiResponse(code = 200, message = "Successfully fetched the latest snapshot.")
 	})
 	public @ResponseBody byte[] getLatestSnapshot() throws Exception {
-		return webcamService.getLatestSnapshot().getSnapshotImage();
+		return webcamService.getLatestSnapshot();
 	}
 }

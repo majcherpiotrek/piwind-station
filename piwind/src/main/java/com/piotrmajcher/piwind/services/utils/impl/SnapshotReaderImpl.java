@@ -21,7 +21,7 @@ public class SnapshotReaderImpl implements SnapshotReader {
 
     private static final Logger logger = Logger.getLogger(SnapshotReaderImpl.class);
 
-    private static final String TAKE_SNAPSHOT_COMMAND = "raspistill --nopreview -o";
+    private static final String TAKE_SNAPSHOT_COMMAND = "raspistill --nopreview -t 200 -w 640 -h 480 -q 75 -o";
     private static final String SNAPSHOT_FILENAME_PREFIX = "./snapshots/snapshot_"; //snapshot filename : snapshot_2017-09-21T12:56:23.5.jpg
     private static final String RM_COMMAND = "rm ";
     private static final String INFO_DELETED_TEMPORARY_SNAPSHOT_FILE = "Deleted temporary snapshot file from the filesystem";
@@ -41,7 +41,7 @@ public class SnapshotReaderImpl implements SnapshotReader {
             snapshot.setFilename(snapshotFilename);
             snapshot.setSnapshotImage(snapshotRawData);
             deleteSnapshotFile(snapshotFilename);
-            logger.info(INFO_DELETED_TEMPORARY_SNAPSHOT_FILE);
+            logger.debug(INFO_DELETED_TEMPORARY_SNAPSHOT_FILE);
         } catch (CommandExecutionException | IOException e) {
             throw new SnapshotReaderException(e.getMessage());
         }

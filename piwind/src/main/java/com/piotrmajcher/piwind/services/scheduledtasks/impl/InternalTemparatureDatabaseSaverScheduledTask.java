@@ -13,9 +13,9 @@ import com.piotrmajcher.piwind.services.utils.TemperatureReader;
 import com.piotrmajcher.piwind.services.utils.exceptions.TemperatureReaderException;
 
 @Component
-public class TemparatureDatabaseSaverScheduledTask implements DatabaseSaverScheduledTask{
+public class InternalTemparatureDatabaseSaverScheduledTask implements DatabaseSaverScheduledTask{
 
-    private static final Logger logger = Logger.getLogger(TemparatureDatabaseSaverScheduledTask.class);
+    private static final Logger logger = Logger.getLogger(InternalTemparatureDatabaseSaverScheduledTask.class);
 
     private static final String INFO_FETCHED_INTERNAL_TEMPERATURE_DATA = "Fetched internal temperature data:";
     private static final String ERROR_SCHEDULED_TASK_FAILED = "Failed to execute temperature scheduled task:";
@@ -26,7 +26,7 @@ public class TemparatureDatabaseSaverScheduledTask implements DatabaseSaverSched
     @Autowired
     private TemperatureReader temperatureReader;
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 5 * 60000)
     @Override
     public void fetchDataAndSaveToDatabase() {
 
@@ -48,6 +48,6 @@ public class TemparatureDatabaseSaverScheduledTask implements DatabaseSaverSched
         InternalTemperature internalTemperature = new InternalTemperature();
         internalTemperature.setTemperatureCelsius(temperature);
         internalTemperatureRepository.save(internalTemperature);
-        logger.info(INFO_FETCHED_INTERNAL_TEMPERATURE_DATA + " " + internalTemperature.getTemperatureCelsius());
+        logger.debug(INFO_FETCHED_INTERNAL_TEMPERATURE_DATA + " " + internalTemperature.getTemperatureCelsius());
     }
 }
