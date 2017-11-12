@@ -3,6 +3,6 @@ external_therm_path: '/sys/bus/w1/devices/28-000008bfc388/w1_slave'
 high_wind_speed_factor: 3.013
 low_wind_speed_factor: 1.761
 windmeter_radius: 0.0617
-measurement_time: 10
+measurement_time: 3
 windmeter_channel: 10
 min_rps: 0.5
