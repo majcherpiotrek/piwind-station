@@ -1,20 +1,20 @@
 package com.piotrmajcher.piwind.services.utils.impl;
 
-import com.piotrmajcher.piwind.domain.Snapshot;
-import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
-import com.piotrmajcher.piwind.services.utils.CommandExecutor;
-import com.piotrmajcher.piwind.services.utils.SnapshotReader;
-import com.piotrmajcher.piwind.services.utils.exceptions.SnapshotReaderException;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.piotrmajcher.piwind.services.utils.CommandExecutor;
+import com.piotrmajcher.piwind.services.utils.SnapshotReader;
+import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
+import com.piotrmajcher.piwind.services.utils.exceptions.SnapshotReaderException;
 
 @Component
 public class SnapshotReaderImpl implements SnapshotReader {
@@ -30,16 +30,13 @@ public class SnapshotReaderImpl implements SnapshotReader {
     private CommandExecutor commandExecutor;
 
     @Override
-    public Snapshot fetchSnapshot() throws SnapshotReaderException {
-        Snapshot snapshot;
+    public byte[] fetchSnapshot() throws SnapshotReaderException {
+        byte[] snapshot = null;
         try {
             String snapshotFilename = takeSnapshot();
-            snapshot = new Snapshot();
             Path path = Paths.get(snapshotFilename);
 
-            byte[] snapshotRawData = Files.readAllBytes(path);
-            snapshot.setFilename(snapshotFilename);
-            snapshot.setSnapshotImage(snapshotRawData);
+            snapshot = Files.readAllBytes(path);
             deleteSnapshotFile(snapshotFilename);
             logger.debug(INFO_DELETED_TEMPORARY_SNAPSHOT_FILE);
         } catch (CommandExecutionException | IOException e) {
