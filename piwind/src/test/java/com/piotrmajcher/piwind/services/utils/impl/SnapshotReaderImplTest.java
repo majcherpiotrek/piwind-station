@@ -1,8 +1,5 @@
 package com.piotrmajcher.piwind.services.utils.impl;
 
-import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
-import com.piotrmajcher.piwind.services.utils.CommandExecutor;
-import com.piotrmajcher.piwind.services.utils.exceptions.SnapshotReaderException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import com.piotrmajcher.piwind.services.utils.CommandExecutor;
+import com.piotrmajcher.piwind.services.utils.exceptions.CommandExecutionException;
+import com.piotrmajcher.piwind.services.utils.exceptions.SnapshotReaderException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SnapshotReaderImplTest {
