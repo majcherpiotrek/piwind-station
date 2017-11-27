@@ -13,7 +13,7 @@ public interface MeteoDataRepository extends CrudRepository<MeteoData, Long> {
 
 	List<MeteoData> findAll();
 	
-	@Query("SELECT meteo FROM MeteoData meteo WHERE meteo.dateTime >= :dateTime")
+	@Query("SELECT meteo FROM MeteoData meteo WHERE meteo.dateTime >= :dateTime ORDER BY meteo.id ASC")
 	List<MeteoData> findAllMeasurementsFromSpecifiedDateTimeTillNow(@Param("dateTime") LocalDateTime dateTime);
 	
 	@Query("SELECT meteo FROM MeteoData meteo WHERE meteo.id = (SELECT MAX(meteo2.id) FROM MeteoData meteo2)")

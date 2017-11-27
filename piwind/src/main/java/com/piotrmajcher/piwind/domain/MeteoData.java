@@ -86,4 +86,11 @@ public class MeteoData {
 	public LocalDateTime getDateTime() {
 		return dateTime;
 	}
+
+	@Override
+	public String toString() {
+		return "MeteoData [id=" + id + ", temperatureCelsius=" + temperatureCelsius + ", windDirection=" + windDirection
+				+ ", windSpeedMPS=" + windSpeedMPS + ", windSpeedMeasurementTimeSeconds="
+				+ windSpeedMeasurementTimeSeconds + ", dateTime=" + dateTime + "]";
+	}
 }
